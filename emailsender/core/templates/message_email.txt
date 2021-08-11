@@ -1,0 +1,11 @@
+Oi, {{ receiver }}!
+Você recebeu uma carta de {{ sender }}!
+
+{{ content }}
+
+Se você não quer receber mais cartas do nosso
+correio elegante, clique aqui.
+
+Atenciosamente,
+---
+Rafic Farah

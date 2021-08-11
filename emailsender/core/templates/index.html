@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}EmailSender{% endblock title %}</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="Eventex - O maior encontro hacker do mundo!">
+        <meta name="author" content="wttd">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/basalstyle/style.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+        <link href='http://fonts.googleapis.com/css?family=Economica:400,700' rel='stylesheet' type='text/css'>
+        {{ message.media }}
+    </head>
+
+<body>
+    <section>
+        <div class="content row padding-bottom-3 desktop-12 container">
+            <h2>Envie a sua carta!</h2>
+            <div class="desktop-6">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert success">
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <form action="." novalidate method="post">
+                    {% csrf_token %}
+                    {{ message.non_field_errors }}
+                    <div class="message-row label-block input-text">
+                        <label for="{{ message.sender.id_for_label }}">{{ message.sender.label }}</label>
+                        {{ message.sender.errors }}
+                        {{ message.sender }}
+                    </div>
+                    <div class="message-row label-block input-text">
+                        <label for="{{ message.receiver.id_for_label }}">{{ message.receiver.label }}</label>
+                        {{ message.receiver.errors }}
+                        {{ message.receiver }}
+                    </div>
+                    <div class="message-row label-block input-text">
+                        <label for="{{ message.email.id_for_label }}">{{ message.email.label }}</label>
+                        {{ message.email.errors }}
+                        {{ message.email }}
+                    </div>
+                    <div class="message-row label-block input-text">
+                        <label for="{{ message.content.id_for_label }}">{{ message.content.label }}</label>
+                        {{ message.content.errors }}
+                        {{ message.content }}
+                    </div>
+                    <p class="btn-row"><input type="submit" value="Enviar!"/></p>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
