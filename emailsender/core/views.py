@@ -11,8 +11,10 @@ def home(request):
         form = MessageForm(request.POST)
         
         if form.is_valid():
-
-            body = render_to_string('message_email.txt', form.cleaned_data)
+            if form.cleaned_data['sender']:
+                body = render_to_string('message_email.txt', form.cleaned_data)
+            else:
+                body = render_to_string('message_email_nofrom.txt', form.cleaned_data)
 
             mail.send_mail('Você recebeu uma carta!',
                         body,

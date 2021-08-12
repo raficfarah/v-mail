@@ -1,5 +1,5 @@
 Oi, {{ receiver }}!
-Você recebeu uma carta de {{ sender }}:
+Você recebeu uma carta anônima:
 
 "{{ content }}"
 
