@@ -1,46 +1,13 @@
 from django.core import mail
 from django.test import TestCase
 from emailsender.core.forms import MessageForm
+from emailsender.core.models import Message
 
 
-class SendMessageTest(TestCase):
-    def setUp(self):
-        self.resp = self.client.get('')
-        self.form = self.resp.context['message']
-
-    def test_get(self):
-        '''Get "/" must return status code 200.'''
-        self.assertEqual(self.resp.status_code, 200)
-
-    def test_template(self):
-        '''Must use index.html'''
-        self.assertTemplateUsed(self.resp, 'index.html')
-
-    def test_html(self):
-        self.assertContains(self.resp, '<form')
-        self.assertContains(self.resp, '<input', 5)
-        self.assertContains(self.resp, '<textarea', 1)
-        self.assertContains(self.resp, 'type="text"', 2)
-        self.assertContains(self.resp, 'type="email"', 1)
-        self.assertContains(self.resp, 'type="submit"', 1)
-
-    def test_csrf(self):
-        '''Html must contain a CSRF token.'''
-        self.assertContains(self.resp, 'csrfmiddlewaretoken')
-
-    def test_has_form(self):
-        '''Context must have MessageForm'''
-        self.assertIsInstance(self.form, MessageForm)
-
-    def test_form_has_fields(self):
-        self.assertSequenceEqual(
-            ['sender', 'receiver', 'email', 'content'], list(self.form.fields))
-
-
-class MessagePostTest(TestCase):
+class MessageValidPost(TestCase):
     def setUp(self):
         self.data = dict(sender='rafic', receiver='sandro',
-                         email='sandrohmt@gmail.com', content='blablabla blablabla')
+                         email='teste@gmail.com', content='blablabla blablabla')
         self.resp = self.client.post('', self.data)
         self.email = mail.outbox[0]
 
@@ -60,14 +27,17 @@ class MessagePostTest(TestCase):
         self.assertEqual(expect, self.email.from_email)
 
     def test_message_email_to(self):
-        expect = ['raficfarah07@gmail.com', 'sandrohmt@gmail.com']
+        expect = ['elegante.correios.01@gmail.com', 'teste@gmail.com']
         self.assertEqual(expect, self.email.to)
 
     def test_message_email_body(self):
         self.assertIn('rafic', self.email.body)
         self.assertIn('sandro', self.email.body)
-#       self.assertIn('sandrohmt@gmail.com', self.email.body)
+#       self.assertIn('teste@gmail.com', self.email.body)
         self.assertIn('blablabla', self.email.body)
+
+    def test_save_message(self):
+        self.assertTrue(Message.objects.exists())
 
 
 class MessageInvalidPost(TestCase):
@@ -88,11 +58,14 @@ class MessageInvalidPost(TestCase):
     def test_form_has_errors(self):
         self.assertTrue(self.form.errors)
 
+    def test_dont_save_message(self):
+        self.assertFalse(Message.objects.exists())
+
 
 class MessageSuccessNotification(TestCase):
     def setUp(self):
         self.data = dict(sender='rafic', receiver='sandro',
-                         email='sandrohmt@gmail.com', content='blablabla blablabla')
+                         email='teste@gmail.com', content='blablabla blablabla')
         self.resp = self.client.post('', self.data, follow=True)
 
     def test_message(self):

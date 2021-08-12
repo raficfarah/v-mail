@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.timezone import now
 
 
 class Message(models.Model):
@@ -7,7 +6,7 @@ class Message(models.Model):
     receiver = models.CharField('destinatário', max_length=65)
     email = models.EmailField('e-mail do destinatário', default=None)
     content = models.TextField()
-    created_at = models.DateTimeField('hora de envio', default=now)
+    created_at = models.DateTimeField('hora de envio', auto_now_add=True)
     
     class Meta:
         verbose_name = "mensagem"

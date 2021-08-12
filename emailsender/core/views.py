@@ -1,3 +1,4 @@
+from emailsender.core.models import Message
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.core import mail
 from django.shortcuts import render
@@ -8,25 +9,43 @@ from django.contrib import messages
 
 def home(request):
     if request.method == 'POST':
+        return create(request)
+    
+    return new(request)
+
+
+def create(request):
+    if request.method == 'POST':
         form = MessageForm(request.POST)
         
-        if form.is_valid():
-            if form.cleaned_data['sender']:
-                body = render_to_string('message_email.txt', form.cleaned_data)
-            else:
-                body = render_to_string('message_email_nofrom.txt', form.cleaned_data)
-
-            mail.send_mail('Você recebeu uma carta!',
-                        body,
-                        'elegante.correios.01@gmail.com',
-                        ['elegante.correios.01@gmail.com', form.cleaned_data['email']])
-
-            messages.success(request, 'Sua carta foi enviada!')
-
-            return HttpResponseRedirect('')
-        else:
+        if not form.is_valid():
             return render(request, 'index.html', {'message': form})
 
+        # Check if a sender was declared
+        body = check_sender(form)
+
+        # Send email and insert the data into the model
+        mail.send_mail('Você recebeu uma carta!',
+                    body,
+                    'elegante.correios.01@gmail.com',
+                    ['elegante.correios.01@gmail.com', form.cleaned_data['email']])
+
+        Message.objects.create(**form.cleaned_data)
+
+        # Success feedback to user
+        messages.success(request, 'Sua carta foi enviada!')
+
+        return HttpResponseRedirect('')
+
+
+def new(request):
+    context = {'message': MessageForm()}
+    return render(request, 'index.html', context)
+
+
+def check_sender(form):
+    if form.cleaned_data['sender']:
+        body = render_to_string('message_email.txt', form.cleaned_data)
     else:
-        context = {'message': MessageForm()}
-        return render(request, 'index.html', context)
+        body = render_to_string('message_email_nofrom.txt', form.cleaned_data)
+    return body
