@@ -17,7 +17,7 @@ def home(request):
             mail.send_mail('Você recebeu uma carta!',
                         body,
                         'elegante.correios.01@gmail.com',
-                        ['raficfarah07@gmail.com', form.cleaned_data['email']])
+                        ['elegante.correios.01@gmail.com', form.cleaned_data['email']])
 
             messages.success(request, 'Sua carta foi enviada!')
 
