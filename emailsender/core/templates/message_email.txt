@@ -1,9 +1,12 @@
 Oi, {{ receiver }}!
 Você recebeu uma carta de {{ sender }}!
 
-{{ content }}
+"{{ content }}"
 
-Se você não quer receber mais cartas do nosso
+Não se esqueça de visitar o nosso site:
+https://correioelegante-raficfarah.herokuapp.com/
+
+Caso você não queira receber mais cartas do nosso
 correio elegante, clique aqui.
 
 Atenciosamente,
