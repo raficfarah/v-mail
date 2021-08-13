@@ -4,5 +4,5 @@ from django.contrib import admin
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ['sender', 'created_at',]
-    fields = ['sender', 'receiver', 'email', 'content']
+    list_display = ['receiver', 'sender', 'created_at',]
+    fields = ['receiver', 'email', 'sender', 'content']

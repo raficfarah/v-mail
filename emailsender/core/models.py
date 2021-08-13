@@ -2,8 +2,8 @@ from django.db import models
 
 
 class Message(models.Model):
-    sender = models.CharField('remetente', max_length=65, blank=True)
-    receiver = models.CharField('destinatário', max_length=65)
+    sender = models.CharField('nome do remetente', max_length=65, blank=True)
+    receiver = models.CharField('nome do destinatário', max_length=65)
     email = models.EmailField('e-mail do destinatário', default=None)
     content = models.TextField()
     created_at = models.DateTimeField('hora de envio', auto_now_add=True)
