@@ -1,7 +1,5 @@
 from emailsender.core.models import Message
 from django.http.response import HttpResponse, HttpResponseRedirect
-from django.utils.html import strip_tags
-from bs4 import BeautifulSoup as bsoup
 from django.core import mail
 from django.shortcuts import render
 from django.template.loader import render_to_string
