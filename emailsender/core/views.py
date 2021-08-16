@@ -1,5 +1,7 @@
 from emailsender.core.models import Message
 from django.http.response import HttpResponse, HttpResponseRedirect
+from django.utils.html import strip_tags
+from bs4 import BeautifulSoup as bsoup
 from django.core import mail
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -22,7 +24,7 @@ def create(request):
             return render(request, 'index.html', {'message': form})
 
         # Check if a sender was declared
-        body = check_sender(form)
+        body = sanitize(form)
 
         # Send email and insert the data into the model
         mail.send_mail('Você recebeu uma carta!',
@@ -43,7 +45,7 @@ def new(request):
     return render(request, 'index.html', context)
 
 
-def check_sender(form):
+def sanitize(form):
     if form.cleaned_data['sender']:
         body = render_to_string('message_email.txt', form.cleaned_data)
     else:

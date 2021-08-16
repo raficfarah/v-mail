@@ -4,11 +4,11 @@ Você recebeu uma carta de {{ sender }}:
 "{{ content }}"
 
 Não se esqueça de visitar o nosso site:
-https://correioelegante-raficfarah.herokuapp.com/
+https://correioelegante-raficfarah.herokuapp.com/"
 
-Caso você não queira receber mais cartas do nosso
-correio elegante, clique aqui.
-
-Atenciosamente,
 ---
-Rafic Farah
+Site feito por Rafic Farah
+Meu github:
+github.com/raficfarah
+Meu linkedin:
+www.linkedin.com/in/rafic-farah/
