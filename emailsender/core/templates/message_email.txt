@@ -3,7 +3,7 @@ Você recebeu uma carta de {{ sender }}:
 
 "{{ content }}"
 
-Não se esqueça de visitar o nosso site:
+Visite o nosso site:
 https://correioelegante-raficfarah.herokuapp.com/"
 
 ---
