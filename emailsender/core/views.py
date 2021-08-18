@@ -1,5 +1,6 @@
 from emailsender.core.models import Message
 from django.http.response import HttpResponse, HttpResponseRedirect
+from django.conf import settings
 from django.core import mail
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -11,7 +12,12 @@ def home(request):
     if request.method == 'POST':
         return create(request)
     
-    return new(request)
+    return empty_form(request)
+
+
+def empty_form(request):
+    context = {'message': MessageForm()}
+    return render(request, 'index.html', context)
 
 
 def create(request):
@@ -27,8 +33,8 @@ def create(request):
         # Send email and insert the data into the model
         mail.send_mail('Você recebeu uma carta!',
                     body,
-                    'elegante.correios.01@gmail.com',
-                    ['elegante.correios.01@gmail.com', form.cleaned_data['email']])
+                    settings.DEFAULT_FROM_EMAIL,
+                    [settings.DEFAULT_FROM_EMAIL, form.cleaned_data['email']])
 
         Message.objects.create(**form.cleaned_data)
 
@@ -36,11 +42,6 @@ def create(request):
         messages.success(request, 'Sua carta foi enviada!')
 
         return HttpResponseRedirect('')
-
-
-def new(request):
-    context = {'message': MessageForm()}
-    return render(request, 'index.html', context)
 
 
 def sanitize(form):
