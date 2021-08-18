@@ -4,7 +4,7 @@ Você recebeu uma carta anônima:
 "{{ content }}"
 
 Visite o nosso site:
-https://correioelegante-raficfarah.herokuapp.com/"
+correioelegante-raficfarah.herokuapp.com/"
 
 ---
 Site feito por Rafic Farah
