@@ -31,10 +31,14 @@ class MessageValidPost(TestCase):
         self.assertEqual(expect, self.email.to)
 
     def test_message_email_body(self):
-        self.assertIn('rafic', self.email.body)
-        self.assertIn('sandro', self.email.body)
-#       self.assertIn('teste@gmail.com', self.email.body)
-        self.assertIn('blablabla', self.email.body)
+        contents = [
+            'rafic',
+            'sandro',
+            'blablabla'
+        ]
+        for content in contents:
+            with self.subTest():
+                self.assertIn(content, self.email.body)
 
     def test_save_message(self):
         self.assertTrue(Message.objects.exists())

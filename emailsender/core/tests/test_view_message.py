@@ -16,12 +16,17 @@ class MessageGet(TestCase):
         self.assertTemplateUsed(self.resp, 'index.html')
 
     def test_html(self):
-        self.assertContains(self.resp, '<form')
-        self.assertContains(self.resp, '<input', 5)
-        self.assertContains(self.resp, '<textarea', 1)
-        self.assertContains(self.resp, 'type="text"', 2)
-        self.assertContains(self.resp, 'type="email"', 1)
-        self.assertContains(self.resp, 'type="submit"', 1)
+        tags = (
+            ('<form', 1),
+            ('<input', 5),
+            ('<textarea', 1),
+            ('type="text"', 2),
+            ('type="email"', 1),
+            ('type="submit"', 1),
+        )
+        for text, count in tags:
+            with self.subTest():
+                self.assertContains(self.resp, text, count)
 
     def test_csrf(self):
         '''Html must contain a CSRF token.'''
@@ -32,7 +37,5 @@ class MessageGet(TestCase):
         self.assertIsInstance(self.form, MessageForm)
 
     def test_form_has_fields(self):
-        self.assertSequenceEqual(
-            ['sender', 'receiver', 'email', 'content'], list(self.form.fields))
-
-
+        expected = ['sender', 'receiver', 'email', 'content']
+        self.assertSequenceEqual(expected, list(self.form.fields))
