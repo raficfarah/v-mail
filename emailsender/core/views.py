@@ -37,7 +37,7 @@ def create(request):
             body,  # message
             settings.DEFAULT_FROM_EMAIL,  # from email
             [settings.DEFAULT_FROM_EMAIL, form.cleaned_data['email']],  # recipient list
-            html_message=html_body
+            html_message=html_body # alternative body part of the e-mail. always used if html is supported by the receiving e-mail client.
         )
 
         Message.objects.create(**form.cleaned_data)
