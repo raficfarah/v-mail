@@ -1,4 +1,4 @@
-# Correio Elegante
+# V-Mail
 #### (pt-BR)
 Ferramenta para envio de e-mails com Django e SendGrid.
 ## Como desenvolver?
@@ -9,8 +9,8 @@ Ferramenta para envio de e-mails com Django e SendGrid.
 5. Configure a instância com o .env;
 6. Execute os testes.
 ```console
-git clone https://github.com/raficfarah/correioelegante.git
-cd correioelegante
+git clone https://github.com/raficfarah/v-mail.git
+cd v-mail
 python3 -m venv .wttd
 source .wttd/bin/activate
 pip install -r requirements-dev.txt
@@ -43,8 +43,8 @@ Tool for sending e-mails with Django and SendGrid.
 5. Configure the instance settings with .env;
 6. Run the tests.
 ```console
-git clone https://github.com/raficfarah/correioelegante.git
-cd correioelegante
+git clone https://github.com/raficfarah/v-mail.git
+cd v-mail
 python3 -m venv .wttd
 source .wttd/bin/activate
 pip install -r requirements-dev.txt
