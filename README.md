@@ -1,6 +1,7 @@
 # V-Mail
 #### (pt-BR)
 Ferramenta para envio de e-mails com Django e SendGrid.
+Link para acesso: https://correioelegante-raficfarah.herokuapp.com/
 ## Como desenvolver?
 1. Clone o repositório;
 2. Crie um virtualenv com Python 3.8.10;
