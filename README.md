@@ -1,4 +1,4 @@
-# V-Mail **DESCONTINUADO**
+# V-Mail __DESCONTINUADO__
 #### (pt-BR)
 ### Ferramenta para envio de e-mails com Django e SendGrid.
 
